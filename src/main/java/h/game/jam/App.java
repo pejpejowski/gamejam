@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -19,12 +20,14 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         Group group = new Group();
         Scene scene = new Scene(group,500,500, Color.DEEPSKYBLUE);
+        //ground
         {Rectangle ground = new Rectangle();
         ground.setWidth(500);
         ground.setHeight(100);
         ground.setY(475);
         ground.setFill(Color.GREEN);
         group.getChildren().add(ground);}
+        //character
         {Rectangle character = new Rectangle();
         character.setFill(Color.BLACK);
         character.setHeight(50);
@@ -32,19 +35,27 @@ public class App extends Application {
         character.setX(250);
         character.setY(425);
         group.getChildren().add(character);}
+        //weapon
         {Rectangle weapon = new Rectangle();
-            int centerX = 500 / 2;
-            int centerY = 500 / 2;
+            double centerX = weapon.getX();
+            double centerY = weapon.getY();
             scene.setOnMouseClicked((EventHandler< MouseEvent>) mouseEvent -> {
-        double angle = Math.atan2(centerY - MouseInfo.getPointerInfo().getLocation().getY(), centerX - MouseInfo.getPointerInfo().getLocation().getX()) - Math.PI / 2;
-        float degreesToMouse = (57.2957795f * (float)angle) * -1;
-        weapon.setRotate(degreesToMouse);});
+        double angle = Math.toDegrees(Math.atan2(MouseInfo.getPointerInfo().getLocation().getX() - centerX,MouseInfo.getPointerInfo().getLocation().getY() - centerY));
+        weapon.setRotate(angle);});
         weapon.setWidth(10);
         weapon.setHeight(40);
         weapon.setY(410);
         weapon.setX(258);
         weapon.setFill(Color.RED);
         group.getChildren().add(weapon);}
+        //enemies
+        {
+            Circle enemy = new Circle();
+            enemy.setCenterX();
+            enemy.setCenterY();
+            enemy.setFill(Color.BROWN);
+            enemy.setRadius(25);
+        }
         primaryStage.setScene(scene);
         primaryStage.setTitle("Game_Jam");
         primaryStage.setAlwaysOnTop(true);
