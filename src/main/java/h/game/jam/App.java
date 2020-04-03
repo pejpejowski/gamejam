@@ -4,16 +4,11 @@
 package h.game.jam;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import javafx.scene.input.MouseEvent;
 
 public class App extends Application {
 
@@ -21,38 +16,17 @@ public class App extends Application {
         Group group = new Group();
         Scene scene = new Scene(group,500,500, Color.DEEPSKYBLUE);
         //ground
-        {Rectangle ground = new Rectangle();
-        ground.setWidth(500);
-        ground.setHeight(100);
-        ground.setY(475);
-        ground.setFill(Color.GREEN);
-        group.getChildren().add(ground);}
+        Block ground = new Block(0,475, 100, 500, Color.GREEN, group, scene);
         //character
-        {Rectangle character = new Rectangle();
-        character.setFill(Color.BLACK);
-        character.setHeight(50);
-        character.setWidth(25);
-        character.setX(250);
-        character.setY(425);
-        group.getChildren().add(character);}
+        Block character = new Block(250, 425, 50, 25, Color.BLACK, group, scene);
         //weapon
-        {Rectangle weapon = new Rectangle();
-            double centerX = weapon.getX();
-            double centerY = weapon.getY();
-            scene.setOnMouseClicked((EventHandler< MouseEvent>) mouseEvent -> {
-        double angle = Math.toDegrees(Math.atan2(MouseInfo.getPointerInfo().getLocation().getX() - centerX,MouseInfo.getPointerInfo().getLocation().getY() - centerY));
-        weapon.setRotate(angle);});
-        weapon.setWidth(10);
-        weapon.setHeight(40);
-        weapon.setY(410);
-        weapon.setX(258);
-        weapon.setFill(Color.RED);
-        group.getChildren().add(weapon);}
+        Block weapon = new Block(258,410,40,10,Color.RED, group, scene);
+        weapon.eventOnMove();
         //enemies
         {
             Circle enemy = new Circle();
-            enemy.setCenterX();
-            enemy.setCenterY();
+            enemy.setCenterX(10);
+            enemy.setCenterY(10);
             enemy.setFill(Color.BROWN);
             enemy.setRadius(25);
         }
