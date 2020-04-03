@@ -7,29 +7,30 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
-public class App extends Application {
+public class App extends Application{
 
     public void start(Stage primaryStage) throws Exception {
         Group group = new Group();
-        Scene scene = new Scene(group,500,500, Color.DEEPSKYBLUE);
+        Scene scene = new Scene(group, 500, 500, Color.DEEPSKYBLUE);
         //ground
-        Block ground = new Block(0,475, 100, 500, Color.GREEN, group, scene);
+        Block ground = new Block(0, 475, 100, 500, Color.GREEN, group, scene);
         //character
         Block character = new Block(250, 425, 50, 25, Color.BLACK, group, scene);
         //weapon
-        Block weapon = new Block(258,410,40,10,Color.RED, group, scene);
+        Block weapon = new Block(258, 410, 40, 10, Color.RED, group, scene);
         weapon.eventOnMove();
         //enemies
-        {
-            Circle enemy = new Circle();
-            enemy.setCenterX(10);
-            enemy.setCenterY(10);
-            enemy.setFill(Color.BROWN);
-            enemy.setRadius(25);
-        }
+        Enemy lol = new Enemy(12, Color.RED, 250, -15, group, scene);
+        lol.eventOnMove();
+        lol.eventOnClick();
+        Enemy lol1 = new Enemy(12, Color.RED, 50, -15, group, scene);
+        lol1.eventOnMove();
+        lol1.eventOnClick();
+        Enemy lol2 = new Enemy(12, Color.RED, 450, -15, group, scene);
+        lol2.eventOnMove();
+        lol2.eventOnClick();
         primaryStage.setScene(scene);
         primaryStage.setTitle("Game_Jam");
         primaryStage.setAlwaysOnTop(true);

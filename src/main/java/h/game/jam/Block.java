@@ -32,6 +32,7 @@ public class Block {
         this.group.getChildren().add(this.name);
     }
 
+
     public void eventOnMove() {
         final Point[] point = {new Point()};
         double centerX = this.name.getX();
