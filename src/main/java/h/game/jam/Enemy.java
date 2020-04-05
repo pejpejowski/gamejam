@@ -24,7 +24,6 @@ public class Enemy {
         this.group = group;
         this.scene = scene;
         this.counter = counter;
-        paint();
     }
 
     public void eventOnMove() {
@@ -46,7 +45,6 @@ public class Enemy {
         if(group.getChildren().contains(circle)) {
             this.circle.setOnMouseClicked((EventHandler<MouseEvent>) mouseEvent -> {
             App.counter += counter;
-            App.enemies.remove(circle);
             group.getChildren().remove(circle);
         });}
     }
@@ -74,6 +72,10 @@ public class Enemy {
         refresh();
         setColor();
         group.getChildren().add(this.circle);
+    }
+
+    public void destroy() {
+        group.getChildren().remove(circle);
     }
 
     public void refresh () {

@@ -22,8 +22,6 @@ public class TextSquare {
         this.positionY = positionY;
         this.group = group;
         this.scene = scene;
-        refresh();
-        paint();
     }
 
     public void eventOnMove() {
@@ -44,6 +42,10 @@ public class TextSquare {
                 refresh();
             }
         });
+    }
+
+    public void destroy() {
+        group.getChildren().remove(text);
     }
 
     public void paint() {

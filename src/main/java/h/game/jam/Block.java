@@ -28,10 +28,11 @@ public class Block {
         this.color = color;
         this.group = group;
         this.scene = scene;
-        refresh();
-        this.group.getChildren().add(this.name);
     }
 
+    public void destroy() {
+        group.getChildren().remove(name);
+    }
 
     public void eventOnMove() {
         final Point[] point = {new Point()};
@@ -43,6 +44,11 @@ public class Block {
                     point[0].getY() - centerY - this.scene.getWindow().getY() - this.height));
             this.name.setRotate(-angle);
         });
+    }
+
+    public void paint () {
+        refresh();
+        group.getChildren().add(name);
     }
 
     public double getPositionX() {
