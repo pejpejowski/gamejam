@@ -9,28 +9,31 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class App extends Application{
+import java.util.ArrayList;
 
+public class App extends Application{
+    static Integer counter = 0;
+    static ArrayList<Enemy> enemies = new ArrayList<>();
     public void start(Stage primaryStage) throws Exception {
         Group group = new Group();
-        Scene scene = new Scene(group, 500, 500, Color.DEEPSKYBLUE);
+        Scene scene = new Scene(group, 1000, 1000, Color.DEEPSKYBLUE);
         //ground
-        Block ground = new Block(0, 475, 100, 500, Color.GREEN, group, scene);
+        Block ground = new Block(0, 975, 100, 1000, Color.GREEN, group, scene);
         //character
-        Block character = new Block(250, 425, 50, 25, Color.BLACK, group, scene);
+        Block character = new Block(500, 925, 50, 25, Color.BLACK, group, scene);
         //weapon
-        Block weapon = new Block(258, 410, 40, 10, Color.RED, group, scene);
+        Block weapon = new Block(508, 910, 40, 10, Color.RED, group, scene);
         weapon.eventOnMove();
         //enemies
-        Enemy lol = new Enemy(12, Color.RED, 250, -15, group, scene);
-        lol.eventOnMove();
-        lol.eventOnClick();
-        Enemy lol1 = new Enemy(12, Color.RED, 50, -15, group, scene);
-        lol1.eventOnMove();
-        lol1.eventOnClick();
-        Enemy lol2 = new Enemy(12, Color.RED, 450, -15, group, scene);
-        lol2.eventOnMove();
-        lol2.eventOnClick();
+        for(Integer i = 1; i < 101; i++) {
+            enemies.add(new Enemy(22, Math.random()*1000, -i*(int)(Math.random()*55), group, scene, i));
+            enemies.get(i-1).eventOnMove();
+            enemies.get(i-1).eventOnClick();
+        }
+        TextSquare score = new TextSquare(counter,11,22, group, scene);
+        score.eventOnMove();
+        TextSquare left = new TextSquare(enemies.size(),920,22,group,scene);
+        left.eventOnMoveSize();
         primaryStage.setScene(scene);
         primaryStage.setTitle("Game_Jam");
         primaryStage.setAlwaysOnTop(true);

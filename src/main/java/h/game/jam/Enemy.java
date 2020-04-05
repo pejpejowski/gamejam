@@ -9,48 +9,70 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Enemy {
-    int counter = 0;
+    int counter;
     double radius;
-    Color color;
     double positionX;
     double positionY;
     Group group;
     Scene scene;
     Circle circle = new Circle();
 
-    public Enemy(double radius, Color color, double positionX, double positionY, Group group, Scene scene) {
+    public Enemy(double radius, double positionX, double positionY, Group group, Scene scene, int counter) {
         this.radius = radius;
-        this.color = color;
         this.positionX = positionX;
         this.positionY = positionY;
         this.group = group;
         this.scene = scene;
+        this.counter = counter;
         paint();
     }
 
     public void eventOnMove() {
-        this.scene.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<Event>() {
+        if(group.getChildren().contains(circle)) {
+            this.scene.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-                this.circle.setCenterY(this.circle.getCenterY()+1);
+                circle.setCenterY(circle.getCenterY()+1);
+                if(circle.getCenterY() > 975 && group.getChildren().contains(circle)) {
+                    App.counter -= counter *2;
+                    refresh();
+                }
             }
-        });
-        /**this.scene.setOnMouseMoved((EventHandler<MouseEvent>) mouseEvent -> {
-            this.circle.setCenterY(this.circle.getCenterY()+1);
-        });**/
+        });}
     }
 
+
     public void eventOnClick() {
-        this.circle.setOnMouseClicked((EventHandler<MouseEvent>) mouseEvent -> {
-            refresh();
-            counter++;
-            System.out.println(counter);
-        });
+        if(group.getChildren().contains(circle)) {
+            this.circle.setOnMouseClicked((EventHandler<MouseEvent>) mouseEvent -> {
+            App.counter += counter;
+            App.enemies.remove(circle);
+            group.getChildren().remove(circle);
+        });}
+    }
+
+    public void setColor() {
+        if(counter == 1){
+            circle.setFill(Color.RED);
+        }else if(counter == 2) {
+            circle.setFill(Color.BLACK);
+        }else if(counter > 2 && counter < 25) {
+            circle.setFill(Color.PINK);
+        }else if(counter > 24 && counter < 50) {
+            circle.setFill(Color.BLUE);
+        }else if(counter > 49 && counter < 85) {
+            circle.setFill(Color.RED);
+        }else if(counter > 84 && counter < 101) {
+            circle.setFill(Color.DARKGREEN);
+        }else{
+            circle.setFill(Color.RED);
+        }
     }
 
 
     public void paint () {
         refresh();
+        setColor();
         group.getChildren().add(this.circle);
     }
 
@@ -58,7 +80,6 @@ public class Enemy {
         this.circle.setCenterX(this.positionX);
         this.circle.setCenterY(this.positionY);
         this.circle.setRadius(this.radius);
-        this.circle.setFill(this.color);
     }
 
     public double getRadian() {
@@ -70,14 +91,6 @@ public class Enemy {
         refresh();
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-        refresh();
-    }
 
     public double getPositionX() {
         return positionX;

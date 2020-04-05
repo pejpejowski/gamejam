@@ -32,3 +32,6 @@ application {
     // Define the main class for the application.
     mainClassName = 'h.game.jam.App'
 }
+
+targetCompatibility = 8 //or 1.7;1.8 and so on
+sourceCompatibility = 8 //or 1.7;1.8 and so on
