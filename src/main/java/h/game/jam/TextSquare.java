@@ -38,7 +38,7 @@ public class TextSquare {
         this.scene.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-                setString(group.getChildren().size()-5);
+                setString(App.enemiesLeft);
                 refresh();
             }
         });

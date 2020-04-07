@@ -35,14 +35,27 @@ public class Block {
     }
 
     public void eventOnMove() {
-        final Point[] point = {new Point()};
         double centerX = this.name.getX();
         double centerY = this.name.getY();
         this.scene.setOnMouseMoved((EventHandler<MouseEvent>) mouseEvent -> {
-            point[0] = point[0] = MouseInfo.getPointerInfo().getLocation();
-            double angle = Math.toDegrees(Math.atan2(point[0].getX() - centerX - this.scene.getWindow().getX() - this.width,
-                    point[0].getY() - centerY - this.scene.getWindow().getY() - this.height));
-            this.name.setRotate(-angle);
+            if (App.pauza) {
+                App.point = MouseInfo.getPointerInfo().getLocation();
+            double angle = Math.toDegrees(Math.atan2(App.point.getX() - centerX - this.scene.getWindow().getX() - this.width,
+                    App.point.getY() - centerY - this.scene.getWindow().getY() - this.height));
+            this.name.setRotate(-angle);}
+        });
+    }
+
+    protected void eventOnExit() {
+        name.setOnMouseExited((EventHandler<MouseEvent>) mouseEvent -> {
+            eventOnEnter();
+        });
+    }
+
+    protected void eventOnEnter() {
+        name.setOnMouseEntered((EventHandler<MouseEvent>) mouseEvent -> {
+          App.pauza = true;
+          group.getChildren().remove(name);
         });
     }
 

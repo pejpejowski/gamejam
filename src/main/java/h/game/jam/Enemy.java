@@ -27,25 +27,28 @@ public class Enemy {
     }
 
     public void eventOnMove() {
-        if(group.getChildren().contains(circle)) {
             this.scene.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<Event>() {
             @Override
             public void handle(Event event) {
-                circle.setCenterY(circle.getCenterY()+1);
-                if(circle.getCenterY() > 975 && group.getChildren().contains(circle)) {
+                if(App.pauza) {
+                    circle.setCenterY(circle.getCenterY()+1);
+                }
+                if(circle.getCenterY() > 975 && group.getChildren().contains(circle) && App.pauza) {
                     App.counter -= counter *2;
                     refresh();
                 }
             }
-        });}
+        });
     }
 
 
     public void eventOnClick() {
         if(group.getChildren().contains(circle)) {
             this.circle.setOnMouseClicked((EventHandler<MouseEvent>) mouseEvent -> {
-            App.counter += counter;
-            group.getChildren().remove(circle);
+            if(App.pauza) {
+                App.enemiesLeft -= 1;
+                App.counter += counter;
+            group.getChildren().remove(circle);}
         });}
     }
 
