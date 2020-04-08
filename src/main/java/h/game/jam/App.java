@@ -32,12 +32,16 @@ public class App extends Application{
         weapon();
         enemies(100);
         hud();
+        menu();
         eventPauza();
         window(primaryStage);
     }
 
     public void menu() {
-
+        TextSquare newGame = new TextSquare("New Game", 450, 100, group, scene);
+            newGame.bacground(10, 100, 50);
+            newGame.eventOnClick();
+            newGame.eventOnMoveMenu();
     }
 
     public void stage1(Stage primaryStage) {
@@ -52,10 +56,10 @@ public class App extends Application{
     }
 
     public void hud() {
-        TextSquare score = new TextSquare(counter,11,22, group, scene);
+        TextSquare score = new TextSquare(counter.toString(),11,22, group, scene);
         score.eventOnMove();
         score.paint();
-        TextSquare left = new TextSquare(enemies.size(),920,22,group,scene);
+        TextSquare left = new TextSquare(enemiesLeft.toString(),920,22,group,scene);
         left.eventOnMoveSize();
         left.paint();
     }
